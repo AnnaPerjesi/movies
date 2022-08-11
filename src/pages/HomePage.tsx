@@ -1,6 +1,7 @@
+import { Button } from "@mui/material";
 import { inject, observer } from "mobx-react";
 import React from "react";
-import MovieDialog from "../components/movies/movie-dialog/MovieDialog";
+import EditDialog from "../components/movies/edit-dialog/EditDialog";
 import Movies from "../components/movies/Movies";
 import MainStore from "../core/store/MainStore";
 
@@ -12,7 +13,14 @@ class HomePage extends React.Component<IProps> {
   render() {
     return (
       <div>
-        <MovieDialog />
+        <EditDialog />
+
+        <Button
+          variant="outlined"
+          onClick={() => this.props.MainStore.openMovieDialog(null)}
+        >
+          Add new movie
+        </Button>
 
         <Movies />
       </div>

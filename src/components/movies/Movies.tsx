@@ -14,6 +14,10 @@ class Movies extends React.Component<IProps> {
   render() {
     const { MainStore } = this.props;
 
+    if (MainStore.isLoading) {
+      return <div>Loading</div>;
+    }
+
     return (
       <div>
         <Paper
