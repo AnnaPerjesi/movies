@@ -40,15 +40,23 @@ class MainService {
     return response.json();
   }
 
-  async deleteMovie(movieId: string): Promise<any> {
+  async editMovie(movie: Partial<IMovie>, movieId: string) {
     const response = await fetch(`${API_URL}/movies/${movieId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(movie),
+    });
+  }
+
+  async deleteMovie(movieId: string): Promise<any> {
+    await fetch(`${API_URL}/movies/${movieId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
     });
-
-    return response.json();
   }
 }
 export default new MainService();

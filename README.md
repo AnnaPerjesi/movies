@@ -1,3 +1,12 @@
+Követelmények:
+Legalább v14.15.4 verziószámú node
+https://crudcrud.com/ honlapról egy saját api_key - ezt a movies/src/core/service mappában található MainService.tsx file-ban illeszd be az API_URL-be
+
+localhost futtatás:
+Letöltés után menj a movies mappába, nyiss egy terminált és használd a következő parancsokat
+npm i
+npm start
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

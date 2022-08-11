@@ -8,11 +8,8 @@ export const GRID_COLUMNS: GridColDef[] = [
     cellClassName: "movieTitle",
   },
   {
-    field: "releaseDate",
-    headerName: "Released at",
-    width: 300,
-    valueGetter(params) {
-      return new Date(params.value).toLocaleDateString("en-GB");
-    },
+    field: "ageLimit",
+    headerName: "Age limit",
+    width: 120,
   },
 ];

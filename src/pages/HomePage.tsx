@@ -12,15 +12,17 @@ interface IProps {
 class HomePage extends React.Component<IProps> {
   render() {
     return (
-      <div>
+      <div className="homePage">
         <EditDialog />
 
-        <Button
-          variant="outlined"
-          onClick={() => this.props.MainStore.openMovieDialog(null)}
-        >
-          Add new movie
-        </Button>
+        <div className="header">
+          <Button
+            variant="contained"
+            onClick={() => this.props.MainStore.openMovieDialog(null)}
+          >
+            + Add new movie
+          </Button>
+        </div>
 
         <Movies />
       </div>

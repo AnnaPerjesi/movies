@@ -21,6 +21,9 @@ interface IProps {
 class EditDialog extends React.Component<IProps> {
   render() {
     const { MainStore } = this.props;
+    const dialogTitle = MainStore.selectedMovie?.id
+      ? MainStore.selectedMovie?.title
+      : "No title";
 
     if (!MainStore.isMovieDialogOpen) return null;
     if (!MainStore.selectedMovie) return null;
@@ -34,7 +37,7 @@ class EditDialog extends React.Component<IProps> {
         fullWidth
       >
         <DialogTitle sx={{ m: 0, p: 2 }}>
-          <div>{MainStore.selectedMovie?.title}</div>
+          <div>{dialogTitle}</div>
           <IconButton
             aria-label="close"
             onClick={() => MainStore.closeMovieDialog()}
@@ -51,14 +54,14 @@ class EditDialog extends React.Component<IProps> {
 
         <DialogContent dividers>
           <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={1}>
+            <Grid container spacing={2}>
               <Grid container item spacing={2}>
-                <Grid xs={6}>
+                <Grid item xs={6}>
                   <div className="inputContainer">
                     <TextField
                       label="Title"
                       variant="outlined"
-                      style={{ width: "500px" }}
+                      fullWidth
                       value={MainStore.selectedMovie.title || ""}
                       onChange={(ev) => {
                         MainStore.updateFieldByKey("title", ev.target.value);
@@ -66,28 +69,32 @@ class EditDialog extends React.Component<IProps> {
                     />
                   </div>
                 </Grid>
-                <Grid xs={6}>
+                <Grid item xs={6}>
                   <div className="inputContainer">
                     <TextField
                       label="Age limit"
                       variant="outlined"
-                      style={{ width: "500px" }}
+                      fullWidth
                       value={MainStore.selectedMovie.ageLimit || ""}
                       type="number"
                       onChange={(ev) => {
                         MainStore.updateFieldByKey("ageLimit", ev.target.value);
                       }}
+                      error={!MainStore.isAgeLimitValid}
+                      helperText={
+                        !MainStore.isAgeLimitValid ? "Incorrect entry" : ""
+                      }
                     />
                   </div>
                 </Grid>
               </Grid>
               <Grid container item spacing={2}>
-                <Grid xs={12}>
+                <Grid item xs={12}>
                   <div className="inputContainer">
                     <TextField
                       label="Overview"
                       variant="outlined"
-                      style={{ width: "500px" }}
+                      fullWidth
                       value={MainStore.selectedMovie.overview || ""}
                       onChange={(ev) => {
                         MainStore.updateFieldByKey("overview", ev.target.value);
