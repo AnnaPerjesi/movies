@@ -7,6 +7,7 @@ class MainStore {
   selectedMovie: IMovie = null;
   isMovieDialogOpen: boolean = false;
   isLoading: boolean = false;
+  validationErrors: string[] = [];
 
   constructor() {
     makeAutoObservable(this, {
@@ -54,26 +55,47 @@ class MainStore {
 
   /**
    * Save movie Add and Edit
+   * Before dave we have to validate the fields
    * If the item has id, we will use PUT
    * If the item is new, we have to use POST
    */
   *save() {
-    this.isLoading = true;
-    if (this.selectedMovie.id) {
-      const movieToUpdate: Partial<IMovie> = {
-        title: this.selectedMovie.title,
-        ageLimit: this.selectedMovie.ageLimit,
-        overview: this.selectedMovie.overview,
-      };
+    this.validateForm();
+    if (this.validationErrors?.length === 0) {
+      this.isLoading = true;
+      if (this.selectedMovie.id) {
+        const movieToUpdate: Partial<IMovie> = {
+          title: this.selectedMovie.title,
+          ageLimit: this.selectedMovie.ageLimit,
+          overview: this.selectedMovie.overview,
+        };
 
-      yield MainService.editMovie(movieToUpdate, this.selectedMovie.id);
-    } else {
-      yield MainService.addMovie(this.selectedMovie);
+        yield MainService.editMovie(movieToUpdate, this.selectedMovie.id);
+      } else {
+        yield MainService.addMovie(this.selectedMovie);
+      }
+
+      this.loadMovies();
+      this.closeMovieDialog();
+      this.isLoading = false;
+    }
+  }
+
+  validateForm() {
+    this.validationErrors = [];
+    if (!this.selectedMovie.title || this.selectedMovie.title.trim() === "") {
+      this.validationErrors.push('"Movie title" is required');
     }
 
-    this.loadMovies();
-    this.closeMovieDialog();
-    this.isLoading = false;
+    if (!this.selectedMovie.ageLimit) {
+      this.validationErrors.push('"Age limit" is required');
+    }
+
+    if (!this.isAgeLimitValid) {
+      this.validationErrors.push(
+        '"Age limit" entry is wrong. Age limit must be greater than 0'
+      );
+    }
   }
 
   /**

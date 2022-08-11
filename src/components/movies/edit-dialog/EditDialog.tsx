@@ -8,9 +8,11 @@ import {
   Grid,
   TextField,
   Button,
+  DialogActions,
 } from "@mui/material";
 import { inject, observer } from "mobx-react";
 import React from "react";
+import CustomValidation from "../../../controls/CustomValidation";
 import MainStore from "../../../core/store/MainStore";
 import "../../../pages/Home.css";
 
@@ -80,10 +82,6 @@ class EditDialog extends React.Component<IProps> {
                       onChange={(ev) => {
                         MainStore.updateFieldByKey("ageLimit", ev.target.value);
                       }}
-                      error={!MainStore.isAgeLimitValid}
-                      helperText={
-                        !MainStore.isAgeLimitValid ? "Incorrect entry" : ""
-                      }
                     />
                   </div>
                 </Grid>
@@ -95,6 +93,8 @@ class EditDialog extends React.Component<IProps> {
                       label="Overview"
                       variant="outlined"
                       fullWidth
+                      multiline
+                      rows={5}
                       value={MainStore.selectedMovie.overview || ""}
                       onChange={(ev) => {
                         MainStore.updateFieldByKey("overview", ev.target.value);
@@ -104,14 +104,22 @@ class EditDialog extends React.Component<IProps> {
                 </Grid>
               </Grid>
 
-              <Button onClick={() => MainStore.save()}>Save</Button>
-
-              {MainStore.selectedMovie.id && (
-                <Button onClick={() => MainStore.delete()}>Delete</Button>
+              {MainStore.validationErrors?.length > 0 && (
+                <Grid container item spacing={2}>
+                  <Grid item xs={12}>
+                    <CustomValidation messages={MainStore.validationErrors} />
+                  </Grid>
+                </Grid>
               )}
             </Grid>
           </Box>
         </DialogContent>
+        <DialogActions>
+          <Button onClick={() => MainStore.save()}>Save</Button>
+          {MainStore.selectedMovie.id && (
+            <Button onClick={() => MainStore.delete()}>Delete</Button>
+          )}
+        </DialogActions>
       </Dialog>
     );
   }
