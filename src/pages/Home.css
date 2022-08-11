@@ -6,11 +6,23 @@
 }
 
 .header {
-  font-size: 12px;
+  padding: 12px;
+}
+
+.headerContent {
+  width: 100%;
   margin: auto;
+}
+
+.headerInput {
+  margin-left: 12px;
+  margin-right: 12px;
+  margin-bottom: 12px;
+}
+
+.filterBox {
   display: flex;
   justify-content: center;
-  padding: 24px;
 }
 
 .inputContainer {

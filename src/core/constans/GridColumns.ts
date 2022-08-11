@@ -10,6 +10,6 @@ export const GRID_COLUMNS: GridColDef[] = [
   {
     field: "ageLimit",
     headerName: "Age limit",
-    width: 120,
+    width: 200,
   },
 ];

@@ -8,6 +8,7 @@ class MainStore {
   isMovieDialogOpen: boolean = false;
   isLoading: boolean = false;
   validationErrors: string[] = [];
+  filterByaAgeLimit: number = null;
 
   constructor() {
     makeAutoObservable(this, {
@@ -34,6 +35,15 @@ class MainStore {
       });
     }
     this.isLoading = false;
+  }
+
+  get getMovies() {
+    if (this.filterByaAgeLimit) {
+      return this.movies.filter(
+        (movie) => movie.ageLimit && movie.ageLimit === this.filterByaAgeLimit
+      );
+    }
+    return this.movies;
   }
 
   /**
@@ -107,6 +117,10 @@ class MainStore {
     this.closeMovieDialog();
     this.loadMovies();
     this.isLoading = false;
+  }
+
+  setFilter(value: any) {
+    this.filterByaAgeLimit = value;
   }
 
   /**

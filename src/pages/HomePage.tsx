@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { inject, observer } from "mobx-react";
 import React from "react";
 import EditDialog from "../components/movies/edit-dialog/EditDialog";
@@ -14,15 +14,6 @@ class HomePage extends React.Component<IProps> {
     return (
       <div className="homePage">
         <EditDialog />
-
-        <div className="header">
-          <Button
-            variant="contained"
-            onClick={() => this.props.MainStore.openMovieDialog(null)}
-          >
-            + Add new movie
-          </Button>
-        </div>
 
         <Movies />
       </div>
