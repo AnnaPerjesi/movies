@@ -2,7 +2,7 @@ import { inject, observer } from "mobx-react";
 import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { toJS } from "mobx";
-import { Button, Paper, TextField } from "@mui/material";
+import { Box, Button, Grid, Paper, TextField } from "@mui/material";
 import MainStore from "../../core/store/MainStore";
 import { GRID_COLUMNS } from "../../core/constans/GridColumns";
 
@@ -29,30 +29,34 @@ class Movies extends React.Component<IProps> {
             marginTop: "32px",
           }}
         >
-          <div className="header">
-            <div className="headerContent">
-              <div className="headerInput">
-                <Button
-                  variant="contained"
-                  onClick={() => MainStore.openMovieDialog(null)}
-                >
-                  + Add new movie
-                </Button>
-              </div>
-              <div className="filterBox">
-                <TextField
-                  label="Filter by age limit"
-                  variant="outlined"
-                  value={MainStore.filterByaAgeLimit || ""}
-                  type="number"
-                  onChange={(ev) => {
-                    MainStore.setFilter(ev.target.value);
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-          <div style={{ height: "60vh", width: "100%" }}>
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={2}>
+              <Grid container item spacing={2}>
+                <Grid item xs={3}>
+                  <Button
+                    variant="contained"
+                    onClick={() => MainStore.openMovieDialog(null)}
+                  >
+                    + Add new movie
+                  </Button>
+                </Grid>
+                <Grid item xs={9}>
+                  <TextField
+                    label="Filter by age limit"
+                    variant="outlined"
+                    value={MainStore.filterByaAgeLimit || ""}
+                    type="number"
+                    onChange={(ev) => {
+                      MainStore.setFilter(ev.target.value);
+                    }}
+                    size="small"
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+          </Box>
+
+          <div style={{ height: "60vh", width: "100%", marginTop: "24px" }}>
             <DataGrid
               rows={toJS(MainStore.getMovies)}
               columns={GRID_COLUMNS}

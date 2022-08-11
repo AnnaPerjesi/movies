@@ -1,6 +1,6 @@
 Követelmények:
-Legalább v14.15.4 verziószámú node
-https://crudcrud.com/ honlapról egy saját api_key - ezt a movies/src/core/service mappában található MainService.tsx file-ban illeszd be az API_URL-be
+Legalább v14.15.4 verziószámú node (https://nodejs.org/en/)
+https://crudcrud.com/ honlapról generálj egy saját api_key-t és ezt add értékül a .env fileban lévő REACT_APP_API_KEY-nek
 
 localhost futtatás:
 Letöltés után menj a movies mappába, nyiss egy terminált és használd a következő parancsokat

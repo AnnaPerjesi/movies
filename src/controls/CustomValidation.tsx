@@ -11,9 +11,11 @@ export default class CustomValidation extends React.Component<IProps> {
 
     return (
       <Alert severity="error">
-        {messages.map((message, idx) => {
-          return <li>{message}</li>;
-        })}
+        <ul>
+          {messages.map((message, idx) => {
+            return <li key={idx}>{message}</li>;
+          })}
+        </ul>
       </Alert>
     );
   }

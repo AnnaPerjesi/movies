@@ -1,6 +1,6 @@
 import { IMovie } from "../models/IMovie";
 
-const API_URL = "https://crudcrud.com/api/eaed7c4f29544051b61dd69ea6d729bb";
+const API_URL = `https://crudcrud.com/api/${process.env.REACT_APP_API_KEY}`;
 class MainService {
   async getMovies(): Promise<IMovie[]> {
     const response = await fetch(`${API_URL}/movies`, {
